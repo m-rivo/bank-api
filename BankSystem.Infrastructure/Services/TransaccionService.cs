@@ -1,6 +1,7 @@
 ﻿using BankSystem.Core.Entities;
 using BankSystem.Core.Enums;
 using BankSystem.Core.Interfaces;
+using BankSystem.Core.Settings;
 using BankSystem.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -111,5 +112,30 @@ public class TransaccionService : ITransaccionService
             throw new KeyNotFoundException($"La cuenta con número {numeroCuenta} no existe.");
 
         return cuenta;
+    }
+
+    public async Task AplicarInteresAsync(Cuenta cuenta)
+    {
+        // Regla: Si el saldo es mayor a 0, aplicamos un 1% de interés automático
+        if (cuenta.Saldo > 0)
+        {
+            decimal tasaInteres = ConstantesGlobales.TasaInteresMensual;
+            decimal montoInteres = cuenta.Saldo * tasaInteres;
+
+            cuenta.Saldo += montoInteres;
+
+            // Registramos la transacción automática para que aparezca en el historial
+            var transaccion = new Transaccion
+            {
+                IdCuenta = cuenta.Id,
+                Monto = montoInteres,
+                TipoTransaccion = TipoTransaccion.D,
+                Fecha = DateTime.UtcNow,
+                SaldoPostTransaccion = cuenta.Saldo
+            };
+
+            _context.Transacciones.Add(transaccion);
+            await _context.SaveChangesAsync();
+        }
     }
 }

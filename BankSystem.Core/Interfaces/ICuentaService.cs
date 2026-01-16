@@ -6,6 +6,5 @@ namespace BankSystem.Core.Interfaces
     {
         Task<Cuenta> CrearCuentaAsync(int idCliente, decimal saldoInicial);
         Task<decimal> ConsultarSaldoAsync(string numeroCuenta);
-        Task<Cuenta?> ObtenerPorNumeroAsync(string numeroCuenta);
     }
 }

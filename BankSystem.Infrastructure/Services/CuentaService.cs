@@ -1,5 +1,6 @@
 ﻿using BankSystem.Core.Entities;
 using BankSystem.Core.Interfaces;
+using BankSystem.Core.Settings;
 using BankSystem.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,16 +31,16 @@ public class CuentaService : ICuentaService
         {
 
             var random = new Random().Next(100000, 999999);
-            numeroGenerado = $"ACC-{random}";
+            numeroGenerado = $"CTA-{random}";
 
 
             yaExiste = await _context.Cuentas.AnyAsync(c => c.NumeroCuenta == numeroGenerado);
         } while (yaExiste);
 
 
-        if (saldoInicial < 1000)
+        if (saldoInicial < ConstantesGlobales.TasaInteresMensual)
         {
-            throw new InvalidOperationException($"No se puede crear la cuenta: El saldo inicial no puede ser menor a 1,000.");
+            throw new InvalidOperationException($"No se puede crear la cuenta: El saldo inicial no puede ser menor a {ConstantesGlobales.TasaInteresMensual}.");
         }
 
 
@@ -67,9 +68,4 @@ public class CuentaService : ICuentaService
         return cuenta.Saldo;
     }
 
-    public async Task<Cuenta?> ObtenerPorNumeroAsync(string numeroCuenta)
-    {
-        return await _context.Cuentas
-            .FirstOrDefaultAsync(c => c.NumeroCuenta == numeroCuenta);
-    }
 }
