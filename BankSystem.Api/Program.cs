@@ -1,5 +1,7 @@
 using System.Text.Json.Serialization;
+using BankSystem.Core.Interfaces;
 using BankSystem.Infrastructure.Persistence;
+using BankSystem.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        // Esto hace que los Enums se vean como texto "M"/"F" en la API
+        // Esto hace que los Enums (como Sexo) se vean como texto "M"/"F" en la API
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
 
@@ -21,13 +23,13 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BankDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
-// Servicios
+// Registro de servicios
+builder.Services.AddScoped<IClienteService, ClienteService>();
 
 
 var app = builder.Build();
 
-// 2. Configuración de Pipeline (Middleware)
+// 2. CONFIGURACIÓN DEL PIPELINE (Middleware)
 
 if (app.Environment.IsDevelopment())
 {
