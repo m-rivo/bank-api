@@ -38,6 +38,18 @@ namespace BankSystem.Infrastructure.Persistence
                 .Property(t => t.TipoTransaccion)
                 .HasConversion<string>();
 
+            modelBuilder.Entity<Cuenta>()
+                .HasOne<Cliente>()
+                .WithMany()
+                .HasForeignKey(c => c.IdCliente)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Transaccion>()
+                .HasOne<Cuenta>()            
+                .WithMany()                  
+                .HasForeignKey(t => t.IdCuenta)
+                .OnDelete(DeleteBehavior.Cascade);
+
             base.OnModelCreating(modelBuilder);
         }
     }

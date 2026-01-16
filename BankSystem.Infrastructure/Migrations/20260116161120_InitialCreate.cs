@@ -36,7 +36,7 @@ namespace BankSystem.Infrastructure.Migrations
                     NumeroCuenta = table.Column<string>(type: "TEXT", nullable: false),
                     Saldo = table.Column<double>(type: "REAL", nullable: false),
                     IdCliente = table.Column<int>(type: "INTEGER", nullable: false),
-                    ClienteId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ClienteId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -44,6 +44,11 @@ namespace BankSystem.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_Cuentas_Clientes_ClienteId",
                         column: x => x.ClienteId,
+                        principalTable: "Clientes",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Cuentas_Clientes_IdCliente",
+                        column: x => x.IdCliente,
                         principalTable: "Clientes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -70,12 +75,23 @@ namespace BankSystem.Infrastructure.Migrations
                         column: x => x.CuentaId,
                         principalTable: "Cuentas",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Transacciones_Cuentas_IdCuenta",
+                        column: x => x.IdCuenta,
+                        principalTable: "Cuentas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cuentas_ClienteId",
                 table: "Cuentas",
                 column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Cuentas_IdCliente",
+                table: "Cuentas",
+                column: "IdCliente");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Cuentas_NumeroCuenta",
@@ -87,6 +103,11 @@ namespace BankSystem.Infrastructure.Migrations
                 name: "IX_Transacciones_CuentaId",
                 table: "Transacciones",
                 column: "CuentaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transacciones_IdCuenta",
+                table: "Transacciones",
+                column: "IdCuenta");
         }
 
         /// <inheritdoc />

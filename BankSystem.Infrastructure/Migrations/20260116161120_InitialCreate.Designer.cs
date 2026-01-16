@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BankSystem.Infrastructure.Migrations
 {
     [DbContext(typeof(BankDbContext))]
-    [Migration("20260116051631_InitialCreate")]
+    [Migration("20260116161120_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -51,7 +51,7 @@ namespace BankSystem.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ClienteId")
+                    b.Property<int?>("ClienteId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("IdCliente")
@@ -67,6 +67,8 @@ namespace BankSystem.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ClienteId");
+
+                    b.HasIndex("IdCliente");
 
                     b.HasIndex("NumeroCuenta")
                         .IsUnique();
@@ -103,18 +105,22 @@ namespace BankSystem.Infrastructure.Migrations
 
                     b.HasIndex("CuentaId");
 
+                    b.HasIndex("IdCuenta");
+
                     b.ToTable("Transacciones");
                 });
 
             modelBuilder.Entity("BankSystem.Core.Entities.Cuenta", b =>
                 {
-                    b.HasOne("BankSystem.Core.Entities.Cliente", "Cliente")
+                    b.HasOne("BankSystem.Core.Entities.Cliente", null)
                         .WithMany("Cuentas")
-                        .HasForeignKey("ClienteId")
+                        .HasForeignKey("ClienteId");
+
+                    b.HasOne("BankSystem.Core.Entities.Cliente", null)
+                        .WithMany()
+                        .HasForeignKey("IdCliente")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Cliente");
                 });
 
             modelBuilder.Entity("BankSystem.Core.Entities.Transaccion", b =>
@@ -122,6 +128,12 @@ namespace BankSystem.Infrastructure.Migrations
                     b.HasOne("BankSystem.Core.Entities.Cuenta", null)
                         .WithMany("Transacciones")
                         .HasForeignKey("CuentaId");
+
+                    b.HasOne("BankSystem.Core.Entities.Cuenta", null)
+                        .WithMany()
+                        .HasForeignKey("IdCuenta")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BankSystem.Core.Entities.Cliente", b =>
