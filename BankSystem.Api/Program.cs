@@ -26,7 +26,7 @@ builder.Services.AddDbContext<BankDbContext>(options =>
 // Registro de servicios
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<ICuentaService, CuentaService>();
-
+builder.Services.AddScoped<ITransaccionService, TransaccionService>();
 
 var app = builder.Build();
 
