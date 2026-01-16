@@ -38,9 +38,9 @@ public class CuentaService : ICuentaService
         } while (yaExiste);
 
 
-        if (saldoInicial < ConstantesGlobales.TasaInteresMensual)
+        if (saldoInicial < ConstantesGlobales.SaldoMinimoInicial)
         {
-            throw new InvalidOperationException($"No se puede crear la cuenta: El saldo inicial no puede ser menor a {ConstantesGlobales.TasaInteresMensual}.");
+            throw new InvalidOperationException($"No se puede crear la cuenta: El saldo inicial no puede ser menor a {ConstantesGlobales.SaldoMinimoInicial}.");
         }
 
 
