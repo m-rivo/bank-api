@@ -20,4 +20,9 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BankSystem.Core\BankSystem.Core.csproj" />
+    <ProjectReference Include="..\BankSystem.Infrastructure\BankSystem.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
