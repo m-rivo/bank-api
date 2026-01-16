@@ -4,13 +4,18 @@ Gestión de cuentas bancarias y transacciones, desarrollada con **.NET 8**.
 
 ## 🚀 Instrucciones de Ejecución
 
+1.  **Clonar el repositorio:**
+    ```bash
+    git clone https://github.com/m-rivo/bank-api.git
+    cd bank-api
+    ```
 
-1.  **Instalar Dependencias:**
+2.  **Instalar Dependencias:**
     ```bash
     dotnet restore
     ```
     
-2.  **Iniciar la API:**
+3.  **Iniciar la API:**
 
     ```bash
     dotnet run --project BankSystem.Api
@@ -19,7 +24,7 @@ Gestión de cuentas bancarias y transacciones, desarrollada con **.NET 8**.
     _Documentación interactiva en:_ `https://localhost:7212/swagger/index.html`
 
 
-3.  **Ejecutar Pruebas Unitarias:**
+4.  **Ejecutar Pruebas Unitarias:**
     
     ```bash
     dotnet test
