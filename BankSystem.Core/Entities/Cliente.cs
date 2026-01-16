@@ -1,6 +1,7 @@
-﻿namespace BankSystem.Core.Entities
+﻿using BankSystem.Core.Enums;
+namespace BankSystem.Core.Entities
 {
-    public enum Sexo { F, M }
+    
     public class Cliente
     {
         public int Id { get; set; }

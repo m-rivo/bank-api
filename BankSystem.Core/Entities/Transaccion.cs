@@ -1,10 +1,6 @@
-﻿namespace BankSystem.Core.Entities
+﻿using BankSystem.Core.Enums;
+namespace BankSystem.Core.Entities
 {
-    public enum TipoTransaccion 
-    {
-        D, // Depósito
-        R // Retiro
-    } 
 
     public class Transaccion
     {
