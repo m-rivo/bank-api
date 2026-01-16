@@ -6,12 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. Configuración de Servicios (Dependency Injection)
-
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        // Esto hace que los Enums (como Sexo) se vean como texto "M"/"F" en la API
+        // Esto hace que los Enums se vean como texto "M"/"F" en la API
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
 
@@ -30,7 +28,7 @@ builder.Services.AddScoped<ITransaccionService, TransaccionService>();
 
 var app = builder.Build();
 
-// 2. CONFIGURACIÓN DEL PIPELINE (Middleware)
+// Configuración de pipeline (Middleware)
 
 if (app.Environment.IsDevelopment())
 {

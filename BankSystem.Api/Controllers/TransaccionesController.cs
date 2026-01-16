@@ -17,9 +17,6 @@ public class TransaccionesController : ControllerBase
         _transaccionService = transaccionService;
     }
 
-    /// <summary>
-    /// Registra un depósito en una cuenta específica.
-    /// </summary>
     [HttpPost("deposito")]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Transaccion))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -41,9 +38,6 @@ public class TransaccionesController : ControllerBase
         }
     }
 
-    /// <summary>
-    /// Registra un retiro de una cuenta (Monto mínimo > 100).
-    /// </summary>
     [HttpPost("retiro")]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Transaccion))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -69,9 +63,6 @@ public class TransaccionesController : ControllerBase
         }
     }
 
-    /// <summary>
-    /// Obtiene el resumen de cuenta y todos los movimientos.
-    /// </summary>
     [HttpGet("historial/{numeroCuenta}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(HistorialResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

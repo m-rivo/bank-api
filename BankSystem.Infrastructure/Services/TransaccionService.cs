@@ -20,7 +20,7 @@ public class TransaccionService : ITransaccionService
     {
         if (monto <= ConstantesGlobales.MontoMinimoDeposito) throw new ArgumentException($"El monto del depósito debe ser mayor a {ConstantesGlobales.MontoMinimoDeposito}.");
 
-        // Usamos una transacción de base de datos para asegurar integridad
+        // Ttransacción de base de datos para asegurar integridad
         using var dbTransaction = await _context.Database.BeginTransactionAsync();
         try
         {
