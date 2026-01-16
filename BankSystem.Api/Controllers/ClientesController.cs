@@ -22,27 +22,33 @@ public class ClientesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<ClienteResponse>> Crear(ClienteCreateRequest request)
     {
-        // Mapeo de DTO
-        var nuevoCliente = new Cliente
+        try {
+            // Mapeo de DTO
+            var nuevoCliente = new Cliente
+            {
+                Nombre = request.Nombre,
+                FechaNacimiento = request.FechaNacimiento,
+                Sexo = request.Sexo,
+                Ingresos = request.Ingresos
+            };
+
+            var creado = await _clienteService.CrearClienteAsync(nuevoCliente);
+
+            // Response
+            var response = new ClienteResponse(
+                creado.Id,
+                creado.Nombre,
+                creado.FechaNacimiento,
+                creado.Sexo,
+                creado.Ingresos
+            );
+
+            return CreatedAtAction(nameof(ObtenerPorId), new { id = response.Id }, response);
+        }
+        catch (InvalidOperationException ex)
         {
-            Nombre = request.Nombre,
-            FechaNacimiento = request.FechaNacimiento,
-            Sexo = request.Sexo,
-            Ingresos = request.Ingresos
-        };
-
-        var creado = await _clienteService.CrearClienteAsync(nuevoCliente);
-
-        // Response
-        var response = new ClienteResponse(
-            creado.Id,
-            creado.Nombre,
-            creado.FechaNacimiento,
-            creado.Sexo,
-            creado.Ingresos
-        );
-
-        return CreatedAtAction(nameof(ObtenerPorId), new { id = response.Id }, response);
+            return BadRequest(new { error = ex.Message });
+        }
     }
 
     [HttpGet("{id}")]

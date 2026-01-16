@@ -1,4 +1,5 @@
 ﻿using BankSystem.Core.Interfaces;
+using BankSystem.Core.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BankSystem.Api.Controllers;
@@ -18,11 +19,11 @@ public class CuentasController : ControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Crear(int idCliente, decimal saldoInicial)
+    public async Task<IActionResult> Crear([FromBody] CuentaCreateRequest request)
     {
         try
         {
-            var cuenta = await _cuentaService.CrearCuentaAsync(idCliente, saldoInicial);
+            var cuenta = await _cuentaService.CrearCuentaAsync(request.IdCliente, request.SaldoInicial);
 
             return CreatedAtAction(
                 nameof(ConsultarSaldo),
@@ -32,7 +33,7 @@ public class CuentasController : ControllerBase
         }
         catch (InvalidOperationException ex)
         {
-            return BadRequest(new { Message = ex.Message });
+            return BadRequest(new { error = ex.Message });
         }
     }
 
