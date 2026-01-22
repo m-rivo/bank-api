@@ -36,4 +36,4 @@ Asegúrese de tener instalado lo siguiente:
     ```bash
     dotnet test
     ```
-    _Se ejecutan 6 tests que validan la lógica de negocio (creación de cuenta, depósito, retiro, cálculo de intereses, consulta de saldo e historial de transacciones)._
+    _Se ejecutan 7 tests que validan la lógica de negocio (creación de cuenta, depósito, retiro, cálculo de intereses, consulta de saldo e historial de transacciones)._
