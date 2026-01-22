@@ -1,6 +1,6 @@
 # 🏦 Bank System API
 
-Sistemas para la gestión de cuentas bancarias y transacciones desarrollada con **.NET 8**. Este proyecto implementa inyección de dependencias y pruebas unitarias automatizadas.
+Sistema para la gestión de cuentas bancarias y transacciones desarrollado con **.NET 8**. Este proyecto implementa inyección de dependencias y pruebas unitarias automatizadas.
 
 ## 📋 Requisitos Previos
 
